@@ -1,6 +1,12 @@
 package cn.wjdiankong.java2smali;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
 
 public class Java2SmaliTools {
@@ -17,6 +23,8 @@ public class Java2SmaliTools {
     public static final String CLASS_PATH = CLASSDIR + sysSeparator;
 
     public static final String DEXNAME = SMALI_PATH + "classes.dex";
+
+    public static final String ExecuteDir = "ExecuteDir";
 
     public static final HashMap<String, String> classNamePkgMap = new HashMap<>();
 
@@ -36,12 +44,21 @@ public class Java2SmaliTools {
         File libDirFile = new File(LIBDIR);
 //        String javaCmd = "javac -classpath lib" + sysSeparator + "android.jar " + JAVA_PATH + "*.java";
         String javaCmd = "javac -classpath " + libDirFile + sysSeparator + "android.jar " + JAVA_PATH + "*.java";
-        System.out.println("sivan javaCmd = " + javaCmd);
-        boolean isSucc = Utils.execCmd(javaCmd, false);
-        if (!isSucc) {
-            System.out.println("compile java file: is error!");
-            return;
+//        boolean isSucc = Utils.execCmd(javaCmd, false);
+//        if (!isSucc) {
+//            System.out.println("compile java file: is error!");
+//            return;
+//        }
+
+        String[] cmds = null;
+        if (OsDetection.isWindows()) {
+            cmds = new String[]{javaCmd};
+        } else {
+            //linux 中 Runtime 执行命令存在通配符问题
+            cmds = new String[]{"sh", "-c", javaCmd};
         }
+
+        Utils.exec(cmds);
 
         File[] javaFileList = javaDirFile.listFiles();
         for (File javaF : javaFileList) {
@@ -78,12 +95,20 @@ public class Java2SmaliTools {
         if (!smaliDirFile.exists()) {
             smaliDirFile.mkdirs();
         }
-        String dxCmd = "java -jar lib" + sysSeparator + "dx.jar --dex --output=" + DEXNAME + " " + CLASSDIR;
-        boolean isdxSucc = Utils.execCmd(dxCmd, false);
-        if (!isdxSucc) {
-            System.out.println("class file to classes.dex is error!");
-            return;
+
+        String dxCmd = "java -jar " + libDirFile + sysSeparator + "dx.jar --dex --output=" + DEXNAME + " " + CLASSDIR;
+
+        if (OsDetection.isWindows()) {
+            Utils.exec(new String[]{dxCmd});
+        } else {
+            Utils.exec(new String[]{"sh", "-c", dxCmd});
         }
+
+//        boolean isdxSucc = Utils.execCmd(dxCmd, false);
+//        if (!isdxSucc) {
+//            System.out.println("class file to classes.dex is error!");
+//            return;
+//        }
 
         //第三步：利用smali将dex文件变成smali文件
         String smaliCmd = "java -jar lib" + sysSeparator + "baksmali.jar -o " + SMALIDIR + " " + DEXNAME;
@@ -92,6 +117,7 @@ public class Java2SmaliTools {
             System.out.println("dex to smali is error!");
             return;
         } else {
+            System.out.println("java2smali is success");
             File classDexFile = new File(DEXNAME);
             if (classDexFile.exists()) {
                 classDexFile.delete();
@@ -100,8 +126,28 @@ public class Java2SmaliTools {
 
         //第四步：删除classes目录
         if (classDirFile.exists()) {
-            classDirFile.delete();
+            Utils.deleteDir(classDirFile);
+//            classDirFile.delete();
+        }
+
+        //第五步：将生成的 smali 文件拷贝到 ExecuteDir 中，如果 ExecuteDir 中存在该文件，则删除，再拷贝
+        final File ExecuteDir = new File("../../", "ExecuteDir");
+        if (!ExecuteDir.exists()) {
+            System.out.println("ExecuteDir is not exist");
+        }
+
+        SimpleFileVisitor<Path> finder = new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Utils.fileCopy(file.toFile().getAbsolutePath(), ExecuteDir.getAbsolutePath() + sysSeparator + file.toFile().getName());
+                return super.visitFile(file, attrs);
+            }
+        };
+
+        try {
+            java.nio.file.Files.walkFileTree(Paths.get("./smali"), finder);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
 }

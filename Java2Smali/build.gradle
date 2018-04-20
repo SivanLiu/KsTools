@@ -39,6 +39,6 @@ fatJar.doLast {
             include('*.jar')
         }
 
-        into 'temp/bin'
+        into 'executableDir/bin'
     }
 }

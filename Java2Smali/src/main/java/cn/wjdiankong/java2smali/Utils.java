@@ -1,12 +1,69 @@
 package cn.wjdiankong.java2smali;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
 
 public class Utils {
+
+    public static void exec(String[] cmd) {
+        Process process = null;
+        try {
+            process = Runtime.getRuntime().exec(cmd);
+            String error = exec(process.getErrorStream());
+            String result = exec(process.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != process) {
+                process.destroy();
+            }
+        }
+    }
+
+    private static String exec(InputStream stream) {
+        ByteArrayOutputStream outputStream = null;
+        InputStream inputStream = null;
+        try {
+            inputStream = new BufferedInputStream(stream);
+            outputStream = new ByteArrayOutputStream();
+            write(inputStream, outputStream, 1024 * 8);
+            byte[] bytes = outputStream.toByteArray();
+            return new String(bytes, Charset.defaultCharset().name());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void write(InputStream inputStream, OutputStream outputStream, int bufSize)
+            throws IOException {
+        int count = -1;
+        byte[] buffer = new byte[bufSize];
+        while ((count = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, count);
+        }
+    }
 
     /**
      * 执行命令
@@ -121,5 +178,24 @@ public class Utils {
             }
         }
         return null;
+    }
+
+    public static boolean deleteDir(File dir) {
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir
+                        (new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+        if (!dir.delete()) {
+            System.out.println("delete failure");
+            return false;
+        }
+
+        return true;
     }
 }
