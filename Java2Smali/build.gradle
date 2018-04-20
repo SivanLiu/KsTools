@@ -1,0 +1,44 @@
+apply plugin: 'application'
+apply plugin: 'java'
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+group 'tools'
+version '1.0'
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+
+mainClassName = 'cn.wjdiankong.java2smali.Java2SmaliTools'
+applicationName = 'java2SmaliTools'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'cn.wjdiankong.java2smali.Java2SmaliTools'
+    }
+
+    into('libs') {
+        from configurations.runtime
+    }
+}
+
+task fatJar(type: Jar) {
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
+        attributes 'Main-Class': 'cn.wjdiankong.java2smali.Java2SmaliTools'
+    }
+}
+
+fatJar.doLast {
+    copy {
+        from('build/libs') {
+            include('*.jar')
+        }
+
+        into 'temp/bin'
+    }
+}
