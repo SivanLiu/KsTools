@@ -122,7 +122,7 @@
 
     const/16 v2, 0x40
 
-    if-ne v1, v2, :cond_5c
+    if-ne v1, v2, :cond_3a
 
     iget-object v1, p0, Lcn/wjdiankong/hookpms/PmsHookBinderInvocationHandler;->appPkgName:Ljava/lang/String;
 
@@ -130,7 +130,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_5c
+    if-eqz v0, :cond_3a
 
     .line 38
     new-instance v1, Landroid/content/pm/Signature;
@@ -153,52 +153,11 @@
 
     aput-object v1, v2, v3
 
-    .line 50
+    .line 51
     :goto_39
     return-object v0
 
-    .line 43
     :cond_3a
-    const-string v0, "getInstallerPackageName"
-
-    invoke-virtual {p2}, Ljava/lang/reflect/Method;->getName()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v0
-
-    if-eqz v0, :cond_5c
-
-    .line 44
-    aget-object v0, p3, v3
-
-    check-cast v0, Ljava/lang/String;
-
-    .line 45
-    const-string v1, "com.dans.apps.webd"
-
-    invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v0
-
-    if-eqz v0, :cond_5c
-
-    .line 46
-    const-string v0, "xxxxxx"
-
-    const-string v1, "getInstallerPackageName com.android.vending"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 47
-    const-string v0, "com.android.vending"
-
-    goto :goto_39
-
-    .line 50
-    :cond_5c
     iget-object v0, p0, Lcn/wjdiankong/hookpms/PmsHookBinderInvocationHandler;->base:Ljava/lang/Object;
 
     invoke-virtual {p2, v0, p3}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;

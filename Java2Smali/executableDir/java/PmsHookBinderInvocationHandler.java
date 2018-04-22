@@ -40,13 +40,14 @@ public class PmsHookBinderInvocationHandler implements InvocationHandler {
                 info.signatures[0] = sign;
                 return info;
             }
-        } else if ("getInstallerPackageName".equals(method.getName())) {
-            String pkgName = (String) args[0];
-            if ("com.dans.apps.webd".equals(pkgName)) {
-                Log.e("xxxxxx", "getInstallerPackageName com.android.vending");
-                return "com.android.vending";
-            }
         }
+        //破解 debug.proxy apk 验证安装器的代码
+//        else if ("getInstallerPackageName".equals(method.getName())) {
+//            String pkgName = (String) args[0];
+//            if ("com.dans.apps.webd".equals(pkgName)) {
+//                return "com.android.vending";
+//            }
+//        }
         return method.invoke(base, args);
     }
 
