@@ -227,14 +227,18 @@ public class DoWorkUtils {
                 }
 
                 writer.write(str + "\n");
+                System.out.println("hook 1 " + isEntryMethod);
 
                 if (isEntryMethod == 0) {
+                    System.out.println("hook 2");
                     writer.write(Const.hookAttachCodeStr);
                     isSucc = true;
                 } else if (isEntryMethod == 1) {
+                    System.out.println("hook 3");
                     writer.write(Const.hookCreateCodeStr);
                     isSucc = true;
                 } else if (isEntryMethod == 2) {
+                    System.out.println("hook 4");
                     writer.write(Const.hookCreateCodeStr);
                     isSucc = true;
                 }
@@ -366,7 +370,7 @@ public class DoWorkUtils {
             signCmd.append(srcApkPath + " ");
             signCmd.append(keystore + " ");
             signCmd.append("-digestalg SHA1 -sigalg MD5withRSA");
-            System.out.println("sivan sign cmd = "+signCmd.toString());
+            System.out.println("sivan sign cmd = " + signCmd.toString());
             execCmd(signCmd.toString(), false);
             System.out.println("签名apk文件结束===耗时:" + ((System.currentTimeMillis() - time) / 1000) + "s\n\n");
             return true;

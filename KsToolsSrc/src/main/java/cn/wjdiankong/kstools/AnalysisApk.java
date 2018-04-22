@@ -117,6 +117,7 @@ public class AnalysisApk {
 				}
 			}
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}

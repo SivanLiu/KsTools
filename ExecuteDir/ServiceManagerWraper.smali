@@ -5,7 +5,7 @@
 
 # direct methods
 .method public constructor <init>()V
-    .locals 0
+    .registers 1
 
     .prologue
     .line 14
@@ -15,195 +15,176 @@
 .end method
 
 .method public static hookPMS(Landroid/content/Context;)V
-    .locals 3
-    .param p0, "context"    # Landroid/content/Context;
+    .registers 4
 
     .prologue
     .line 46
-    const-string v0, "30820253308201bca00302010202044bbb0361300d06092a864886f70d0101050500306d310e300c060355040613054368696e61310f300d06035504080c06e58c97e4baac310f300d06035504070c06e58c97e4baac310f300d060355040a0c06e885bee8aeaf311b3019060355040b0c12e697a0e7babfe4b89ae58aa1e7b3bbe7bb9f310b30090603550403130251513020170d3130303430363039343831375a180f32323834303132303039343831375a306d310e300c060355040613054368696e61310f300d06035504080c06e58c97e4baac310f300d06035504070c06e58c97e4baac310f300d060355040a0c06e885bee8aeaf311b3019060355040b0c12e697a0e7babfe4b89ae58aa1e7b3bbe7bb9f310b300906035504031302515130819f300d06092a864886f70d010101050003818d0030818902818100a15e9756216f694c5915e0b529095254367c4e64faeff07ae13488d946615a58ddc31a415f717d019edc6d30b9603d3e2a7b3de0ab7e0cf52dfee39373bc472fa997027d798d59f81d525a69ecf156e885fd1e2790924386b2230cc90e3b7adc95603ddcf4c40bdc72f22db0f216a99c371d3bf89cba6578c60699e8a0d536950203010001300d06092a864886f70d01010505000381810094a9b80e80691645dd42d6611775a855f71bcd4d77cb60a8e29404035a5e00b21bcc5d4a562482126bd91b6b0e50709377ceb9ef8c2efd12cc8b16afd9a159f350bb270b14204ff065d843832720702e28b41491fbc3a205f5f2f42526d67f17614d8a974de6487b2c866efede3b4e49a0f916baa3c1336fd2ee1b1629652049"
+    const-string v0, "308203c7308202afa00302010202046aa5b23d300d06092a864886f70d01010b0500308192310b300906035504061302434e3112301006035504080c09e58c97e4baace5b882310f300d06035504070c06e58c97e4baac31333031060355040a0c2ae58c97e4baace5bda9e4ba91e59ca8e7babfe68a80e69cafe5bc80e58f91e69c89e99990e585ace58fb831183016060355040b130f4d65656c69766520416e64726f6964310f300d060355040313066d6565676f643020170d3135303331393032343933375a180f33303134303732303032343933375a308192310b300906035504061302434e3112301006035504080c09e58c97e4baace5b882310f300d06035504070c06e58c97e4baac31333031060355040a0c2ae58c97e4baace5bda9e4ba91e59ca8e7babfe68a80e69cafe5bc80e58f91e69c89e99990e585ace58fb831183016060355040b130f4d65656c69766520416e64726f6964310f300d060355040313066d6565676f6430820122300d06092a864886f70d01010105000382010f003082010a0282010100afa19f82b0a34cd2a40365dda2d9b6c088fc5eeab199175a268c7f2acc738c37a1dc8f705e17b2581cee7df93053495dd70f176c5865f41f6c6374e7b7d9fb31968694d95b623546f4e3b09b9b186dc282b97ac7d0f63441c9917790af1d26a2eeae4d0fd26ec26d6050c59bd9202080d87417fad819ddf70882c7c04137e3d2a07802de8882ef81e5458f7e7973faacfd19ede809bef680ed51b4f01a08eba4644185278e62c7bcff40e77958b803aa0ea1d2ed7e2294736b0745517188367b467472a1ef121d0ddca934b30a68ce6482b95c424701852dff1487575751cececdda382a4cd702b0a148622eb3f3b30ff9bdfaf53969da991c05307ee6b9d5ad0203010001a321301f301d0603551d0e041604148fdf3566bd514be0ab8057f60c309cf818df94b9300d06092a864886f70d01010b050003820101008bc52464264d39d67979aa39b7a0508670f85116c5510db03bf8a57f0fbcc9f0f80cce8d96a14afc3403f4466e7d37ad08c119873d47a471eaf83d92828879d9d62a1af02e33783f38d1ae1245fee410885c223ff5362f41ce0cd33735e7d70b6b1b9d625d558d1ae3db857c5fec33a62a61b54cebc260726f2db3425cef1217c6667ddd13a99445df9318d287e82b8d588a6805628ea0f131240796cb66d6371866dbf7ba04801e39d42c7d49a00bed479db3164872d0ffc12dec76e6b541e77e2844687cfb11559736825a36fa6d65cc75f6f4d95c75253db92ce7749013def632686b3a572bf0ab299c18c778f3948e22632a5da1e1505fea2d02768fbe9f"
 
     .line 47
-    .local v0, "qqSign":Ljava/lang/String;
-    const-string v1, "com.tencent.mobileqq"
+    const-string v1, "cn.wjdiankong.kstools"
 
     const/4 v2, 0x0
 
     invoke-static {p0, v0, v1, v2}, Lcn/wjdiankong/hookpms/ServiceManagerWraper;->hookPMS(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;I)V
 
     .line 48
+    const-string v0, "jw"
+
+    const-string v1, "hook succ"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 49
     return-void
 .end method
 
 .method public static hookPMS(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;I)V
-    .locals 16
-    .param p0, "context"    # Landroid/content/Context;
-    .param p1, "signed"    # Ljava/lang/String;
-    .param p2, "appPkgName"    # Ljava/lang/String;
-    .param p3, "hashCode"    # I
+    .registers 11
 
     .prologue
     .line 19
     :try_start_0
-    const-string v12, "android.app.ActivityThread"
+    const-string v0, "android.app.ActivityThread"
 
-    invoke-static {v12}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
+    invoke-static {v0}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
+
+    move-result-object v0
+
+    .line 20
+    const-string v1, "currentActivityThread"
+
+    const/4 v2, 0x0
+
+    new-array v2, v2, [Ljava/lang/Class;
+
+    .line 21
+    invoke-virtual {v0, v1, v2}, Ljava/lang/Class;->getDeclaredMethod(Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method;
+
+    move-result-object v1
+
+    .line 22
+    const/4 v2, 0x0
+
+    const/4 v3, 0x0
+
+    new-array v3, v3, [Ljava/lang/Object;
+
+    invoke-virtual {v1, v2, v3}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v1
+
+    .line 24
+    const-string v2, "sPackageManager"
+
+    invoke-virtual {v0, v2}, Ljava/lang/Class;->getDeclaredField(Ljava/lang/String;)Ljava/lang/reflect/Field;
+
+    move-result-object v0
+
+    .line 25
+    const/4 v2, 0x1
+
+    invoke-virtual {v0, v2}, Ljava/lang/reflect/Field;->setAccessible(Z)V
+
+    .line 26
+    invoke-virtual {v0, v1}, Ljava/lang/reflect/Field;->get(Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object v2
 
-    .line 21
-    .local v2, "activityThreadClass":Ljava/lang/Class;, "Ljava/lang/Class<*>;"
-    const-string v12, "currentActivityThread"
+    .line 28
+    const-string v3, "android.content.pm.IPackageManager"
 
-    const/4 v13, 0x0
-
-    new-array v13, v13, [Ljava/lang/Class;
-
-    invoke-virtual {v2, v12, v13}, Ljava/lang/Class;->getDeclaredMethod(Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method;
-
-    move-result-object v4
-
-    .line 22
-    .local v4, "currentActivityThreadMethod":Ljava/lang/reflect/Method;
-    const/4 v12, 0x0
-
-    const/4 v13, 0x0
-
-    new-array v13, v13, [Ljava/lang/Object;
-
-    invoke-virtual {v4, v12, v13}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-static {v3}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
 
     move-result-object v3
 
-    .line 24
-    .local v3, "currentActivityThread":Ljava/lang/Object;
-    const-string v12, "sPackageManager"
-
-    invoke-virtual {v2, v12}, Ljava/lang/Class;->getDeclaredField(Ljava/lang/String;)Ljava/lang/reflect/Field;
-
-    move-result-object v11
-
-    .line 25
-    .local v11, "sPackageManagerField":Ljava/lang/reflect/Field;
-    const/4 v12, 0x1
-
-    invoke-virtual {v11, v12}, Ljava/lang/reflect/Field;->setAccessible(Z)V
-
-    .line 26
-    invoke-virtual {v11, v3}, Ljava/lang/reflect/Field;->get(Ljava/lang/Object;)Ljava/lang/Object;
-
-    move-result-object v10
-
-    .line 28
-    .local v10, "sPackageManager":Ljava/lang/Object;
-    const-string v12, "android.content.pm.IPackageManager"
-
-    invoke-static {v12}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
-
-    move-result-object v6
-
     .line 30
-    .local v6, "iPackageManagerInterface":Ljava/lang/Class;, "Ljava/lang/Class<*>;"
-    invoke-virtual {v6}, Ljava/lang/Class;->getClassLoader()Ljava/lang/ClassLoader;
+    invoke-virtual {v3}, Ljava/lang/Class;->getClassLoader()Ljava/lang/ClassLoader;
 
-    move-result-object v12
+    move-result-object v4
 
-    .line 31
-    const/4 v13, 0x1
+    const/4 v5, 0x1
 
-    new-array v13, v13, [Ljava/lang/Class;
+    new-array v5, v5, [Ljava/lang/Class;
 
-    const/4 v14, 0x0
+    const/4 v6, 0x0
 
-    aput-object v6, v13, v14
+    aput-object v3, v5, v6
 
-    .line 32
-    new-instance v14, Lcn/wjdiankong/hookpms/PmsHookBinderInvocationHandler;
+    new-instance v3, Lcn/wjdiankong/hookpms/PmsHookBinderInvocationHandler;
 
-    const/4 v15, 0x0
+    const/4 v6, 0x0
 
-    move-object/from16 v0, p1
-
-    move-object/from16 v1, p2
-
-    invoke-direct {v14, v10, v0, v1, v15}, Lcn/wjdiankong/hookpms/PmsHookBinderInvocationHandler;-><init>(Ljava/lang/Object;Ljava/lang/String;Ljava/lang/String;I)V
+    invoke-direct {v3, v2, p1, p2, v6}, Lcn/wjdiankong/hookpms/PmsHookBinderInvocationHandler;-><init>(Ljava/lang/Object;Ljava/lang/String;Ljava/lang/String;I)V
 
     .line 29
-    invoke-static {v12, v13, v14}, Ljava/lang/reflect/Proxy;->newProxyInstance(Ljava/lang/ClassLoader;[Ljava/lang/Class;Ljava/lang/reflect/InvocationHandler;)Ljava/lang/Object;
+    invoke-static {v4, v5, v3}, Ljava/lang/reflect/Proxy;->newProxyInstance(Ljava/lang/ClassLoader;[Ljava/lang/Class;Ljava/lang/reflect/InvocationHandler;)Ljava/lang/Object;
 
-    move-result-object v9
+    move-result-object v2
 
     .line 34
-    .local v9, "proxy":Ljava/lang/Object;
-    invoke-virtual {v11, v3, v9}, Ljava/lang/reflect/Field;->set(Ljava/lang/Object;Ljava/lang/Object;)V
+    invoke-virtual {v0, v1, v2}, Ljava/lang/reflect/Field;->set(Ljava/lang/Object;Ljava/lang/Object;)V
 
     .line 36
-    invoke-virtual/range {p0 .. p0}, Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;
+    invoke-virtual {p0}, Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;
 
-    move-result-object v8
+    move-result-object v0
 
     .line 37
-    .local v8, "pm":Landroid/content/pm/PackageManager;
-    invoke-virtual {v8}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+    invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
 
-    move-result-object v12
+    move-result-object v1
 
-    const-string v13, "mPM"
+    const-string v3, "mPM"
 
-    invoke-virtual {v12, v13}, Ljava/lang/Class;->getDeclaredField(Ljava/lang/String;)Ljava/lang/reflect/Field;
+    invoke-virtual {v1, v3}, Ljava/lang/Class;->getDeclaredField(Ljava/lang/String;)Ljava/lang/reflect/Field;
 
-    move-result-object v7
+    move-result-object v1
 
     .line 38
-    .local v7, "mPmField":Ljava/lang/reflect/Field;
-    const/4 v12, 0x1
+    const/4 v3, 0x1
 
-    invoke-virtual {v7, v12}, Ljava/lang/reflect/Field;->setAccessible(Z)V
+    invoke-virtual {v1, v3}, Ljava/lang/reflect/Field;->setAccessible(Z)V
 
     .line 39
-    invoke-virtual {v7, v8, v9}, Ljava/lang/reflect/Field;->set(Ljava/lang/Object;Ljava/lang/Object;)V
-    :try_end_0
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+    invoke-virtual {v1, v0, v2}, Ljava/lang/reflect/Field;->set(Ljava/lang/Object;Ljava/lang/Object;)V
+    :try_end_57
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_57} :catch_58
 
     .line 43
-    .end local v2    # "activityThreadClass":Ljava/lang/Class;, "Ljava/lang/Class<*>;"
-    .end local v3    # "currentActivityThread":Ljava/lang/Object;
-    .end local v4    # "currentActivityThreadMethod":Ljava/lang/reflect/Method;
-    .end local v6    # "iPackageManagerInterface":Ljava/lang/Class;, "Ljava/lang/Class<*>;"
-    .end local v7    # "mPmField":Ljava/lang/reflect/Field;
-    .end local v8    # "pm":Landroid/content/pm/PackageManager;
-    .end local v9    # "proxy":Ljava/lang/Object;
-    .end local v10    # "sPackageManager":Ljava/lang/Object;
-    .end local v11    # "sPackageManagerField":Ljava/lang/reflect/Field;
-    :goto_0
+    :goto_57
     return-void
 
     .line 40
-    :catch_0
-    move-exception v5
+    :catch_58
+    move-exception v0
 
     .line 41
-    .local v5, "e":Ljava/lang/Exception;
-    const-string v12, "jw"
+    const-string v1, "jw"
 
-    new-instance v13, Ljava/lang/StringBuilder;
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    const-string v14, "hook pms error:"
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-direct {v13, v14}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+    const-string v3, "hook pms error:"
 
-    invoke-static {v5}, Landroid/util/Log;->getStackTraceString(Ljava/lang/Throwable;)Ljava/lang/String;
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v14
+    move-result-object v2
 
-    invoke-virtual {v13, v14}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-static {v0}, Landroid/util/Log;->getStackTraceString(Ljava/lang/Throwable;)Ljava/lang/String;
 
-    move-result-object v13
+    move-result-object v0
 
-    invoke-virtual {v13}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v13
+    move-result-object v0
 
-    invoke-static {v12, v13}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    goto :goto_0
+    move-result-object v0
+
+    invoke-static {v1, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_57
 .end method

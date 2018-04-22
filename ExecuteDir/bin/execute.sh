@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 echo "current executable dir is $PWD"
 
-#cd ../Java2Smali/executableDir
-#
-#cp ../../Hook/src/main/java/cn/wjdiankong/hookpms/*.java java/
-#
-#./bin/java2smali.sh
+cd ../Java2Smali/executableDir
+
+cp ../../Hook/src/main/java/cn/wjdiankong/hookpms/*.java java/
+
+./bin/java2smali.sh
 
 cd ../../KsToolsSrc
 

@@ -9,35 +9,45 @@
 # instance fields
 .field private SIGN:Ljava/lang/String;
 
+.field private appPkgName:Ljava/lang/String;
+
 .field private base:Ljava/lang/Object;
 
 
 # direct methods
-.method public constructor <init>(Ljava/lang/Object;Ljava/lang/String;)V
-    .registers 7
+.method public constructor <init>(Ljava/lang/Object;Ljava/lang/String;Ljava/lang/String;I)V
+    .registers 9
 
     .prologue
-    .line 14
+    .line 22
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 16
-    :try_start_3
+    .line 20
+    const-string v0, ""
+
+    iput-object v0, p0, Lcn/wjdiankong/hookpms/PmsHookBinderInvocationHandler;->appPkgName:Ljava/lang/String;
+
+    .line 24
+    :try_start_7
     iput-object p1, p0, Lcn/wjdiankong/hookpms/PmsHookBinderInvocationHandler;->base:Ljava/lang/Object;
 
-    .line 17
+    .line 25
     iput-object p2, p0, Lcn/wjdiankong/hookpms/PmsHookBinderInvocationHandler;->SIGN:Ljava/lang/String;
-    :try_end_7
-    .catch Ljava/lang/Exception; {:try_start_3 .. :try_end_7} :catch_8
 
-    .line 21
-    :goto_7
+    .line 26
+    iput-object p3, p0, Lcn/wjdiankong/hookpms/PmsHookBinderInvocationHandler;->appPkgName:Ljava/lang/String;
+    :try_end_d
+    .catch Ljava/lang/Exception; {:try_start_7 .. :try_end_d} :catch_e
+
+    .line 30
+    :goto_d
     return-void
 
-    .line 18
-    :catch_8
+    .line 27
+    :catch_e
     move-exception v0
 
-    .line 19
+    .line 28
     const-string v1, "jw"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -64,7 +74,7 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto :goto_7
+    goto :goto_d
 .end method
 
 
@@ -78,7 +88,9 @@
     .end annotation
 
     .prologue
-    .line 25
+    const/4 v3, 0x0
+
+    .line 34
     const-string v0, "getPackageInfo"
 
     invoke-virtual {p2}, Ljava/lang/reflect/Method;->getName()Ljava/lang/String;
@@ -89,32 +101,45 @@
 
     move-result v0
 
-    if-eqz v0, :cond_2e
+    if-eqz v0, :cond_3a
 
-    .line 26
-    const/4 v0, 0x1
+    .line 35
+    aget-object v0, p3, v3
 
-    aget-object v0, p3, v0
+    check-cast v0, Ljava/lang/String;
 
-    check-cast v0, Ljava/lang/Integer;
+    .line 36
+    const/4 v1, 0x1
 
-    .line 27
-    invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
+    aget-object v1, p3, v1
+
+    check-cast v1, Ljava/lang/Integer;
+
+    .line 37
+    invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
+
+    move-result v1
+
+    const/16 v2, 0x40
+
+    if-ne v1, v2, :cond_3a
+
+    iget-object v1, p0, Lcn/wjdiankong/hookpms/PmsHookBinderInvocationHandler;->appPkgName:Ljava/lang/String;
+
+    invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v0
 
-    const/16 v1, 0x40
+    if-eqz v0, :cond_3a
 
-    if-ne v0, v1, :cond_2e
-
-    .line 28
+    .line 38
     new-instance v1, Landroid/content/pm/Signature;
 
     iget-object v0, p0, Lcn/wjdiankong/hookpms/PmsHookBinderInvocationHandler;->SIGN:Ljava/lang/String;
 
     invoke-direct {v1, v0}, Landroid/content/pm/Signature;-><init>(Ljava/lang/String;)V
 
-    .line 29
+    .line 39
     iget-object v0, p0, Lcn/wjdiankong/hookpms/PmsHookBinderInvocationHandler;->base:Ljava/lang/Object;
 
     invoke-virtual {p2, v0, p3}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
@@ -123,23 +148,21 @@
 
     check-cast v0, Landroid/content/pm/PackageInfo;
 
-    .line 30
+    .line 40
     iget-object v2, v0, Landroid/content/pm/PackageInfo;->signatures:[Landroid/content/pm/Signature;
-
-    const/4 v3, 0x0
 
     aput-object v1, v2, v3
 
-    .line 41
-    :goto_2d
+    .line 44
+    :goto_39
     return-object v0
 
-    :cond_2e
+    :cond_3a
     iget-object v0, p0, Lcn/wjdiankong/hookpms/PmsHookBinderInvocationHandler;->base:Ljava/lang/Object;
 
     invoke-virtual {p2, v0, p3}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object v0
 
-    goto :goto_2d
+    goto :goto_39
 .end method
