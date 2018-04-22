@@ -31,6 +31,12 @@ public class PmsHookBinderInvocationHandler implements InvocationHandler {
                 return info;
             }
         }
+//        else if ("getInstallerPackageName".equals(method.getName())) {
+//            String pkgName = (String) args[0];
+//            if ("com.dans.apps.webd".equals(pkgName)) {
+//                return "com.android.vending";
+//            }
+//        }
 
         return method.invoke(this.base, args);
     }
