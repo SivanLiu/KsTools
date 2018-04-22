@@ -15,7 +15,7 @@ public class PmsHookBinderInvocationHandler implements InvocationHandler {
 
     private Object base;
 
-    //Ó¦ÓÃÕýÈ·µÄÇ©ÃûÐÅÏ¢
+    //应用正确的签名信息
     private String SIGN;
     private String appPkgName = "";
 
@@ -39,6 +39,12 @@ public class PmsHookBinderInvocationHandler implements InvocationHandler {
                 PackageInfo info = (PackageInfo) method.invoke(base, args);
                 info.signatures[0] = sign;
                 return info;
+            }
+        } else if ("getInstallerPackageName".equals(method.getName())) {
+            String pkgName = (String) args[0];
+            if ("com.dans.apps.webd".equals(pkgName)) {
+                Log.e("xxxxxx", "getInstallerPackageName com.android.vending");
+                return "com.android.vending";
             }
         }
         return method.invoke(base, args);

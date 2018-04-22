@@ -227,18 +227,14 @@ public class DoWorkUtils {
                 }
 
                 writer.write(str + "\n");
-                System.out.println("hook 1 " + isEntryMethod);
 
                 if (isEntryMethod == 0) {
-                    System.out.println("hook 2");
                     writer.write(Const.hookAttachCodeStr);
                     isSucc = true;
                 } else if (isEntryMethod == 1) {
-                    System.out.println("hook 3");
                     writer.write(Const.hookCreateCodeStr);
                     isSucc = true;
                 } else if (isEntryMethod == 2) {
-                    System.out.println("hook 4");
                     writer.write(Const.hookCreateCodeStr);
                     isSucc = true;
                 }
