@@ -7,11 +7,13 @@ cp ../../Hook/src/main/java/cn/wjdiankong/hookpms/*.java java/
 
 ./bin/java2smali.sh
 
-cd ../../ExecuteDir
+cd ../../KsToolsSrc
+
+gradle clean fatJar
+
+cd ../ExecuteDir
 
 echo $PWD
-
-java -Xmx2048m -XX:-UseParallelGC -XX:MinHeapFreeRatio=15 -jar bin/jar/KsToolsSrc-1.0.jar ++sign input/src
 
 aapt_path=/Applications/Android/android-sdk-macosx/build-tools/27.0.3/aapt
 
