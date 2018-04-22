@@ -17,7 +17,8 @@ public class JWMain {
 
     public static String aaptCmdDir;
     public static String srcApkPath;
-    public static String unSignedApkPath = "unsigned.apk";
+    public static String unSignedApkPath = "output" + File.separator + "unsigned.apk";
+    public static String signFilePath = "apksign.txt";
     public static String rootPath;
 
     public static void main(String[] args) {
@@ -37,7 +38,6 @@ public class JWMain {
             System.out.println("option args error!");
             return;
         }
-
     }
 
     private static void generateApkSign(String[] args) {
@@ -58,7 +58,7 @@ public class JWMain {
             return;
         }
 
-        File signFile = new File("apksign.txt");
+        File signFile = new File(signFilePath);
         if (signFile.exists()) {
             signFile.delete();
         }
@@ -75,6 +75,7 @@ public class JWMain {
                 try {
                     writer.close();
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -194,6 +195,10 @@ public class JWMain {
         }
 
         DoWorkUtils.deleteTmpFile(rootPath);
+
+        if(signFile.exists()){
+            signFile.delete();
+        }
 
     }
 

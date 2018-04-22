@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import cn.wjdiankong.OsDetection;
 import cn.wjdiankong.kstools.AnalysisApk;
 import cn.wjdiankong.kstools.ApkSign;
 
@@ -108,7 +109,7 @@ public class DoWorkUtils {
         }
         smaliDirF.mkdirs();
         System.out.println("第五步==> 将dex转化成smali");
-        String javaCmd = "java -jar libs" + File.separator + "baksmali.jar -o " + smaliDir + " " + dexFile;
+        String javaCmd = "java -jar " + "bin" + File.separator + "libs" + File.separator + "baksmali.jar -o " + smaliDir + " " + dexFile;
         long startTime = System.currentTimeMillis();
         try {
             Process pro = Runtime.getRuntime().exec(javaCmd);
@@ -280,7 +281,7 @@ public class DoWorkUtils {
         if (dexFileF.exists()) {
             dexFileF.delete();
         }
-        String javaCmd = "java -jar libs" + File.separator + "smali.jar " + smaliDir + " -o " + dexFile;
+        String javaCmd = "java -jar bin" + File.separator + "libs" + File.separator + "smali.jar " + smaliDir + " -o " + dexFile;
         long startTime = System.currentTimeMillis();
         try {
             Process pro = Runtime.getRuntime().exec(javaCmd);
@@ -347,22 +348,25 @@ public class DoWorkUtils {
             System.out.println("第十步==> 开始签名apk文件:" + srcApkPath);
             long time = System.currentTimeMillis();
             String keystore = "cyy_game.keystore";
-            File signFile = new File(rootPath + File.separator + keystore);
+//            File signFile = new File(rootPath + File.separator + "keystore" + File.separator + keystore);
+            File signFile = new File("keystore" + File.separator + keystore);
             if (!signFile.exists()) {
                 System.out.println("签名文件:" + signFile.getAbsolutePath() + " 不存在，需要自己手动签名");
                 return false;
             }
             String storePass = "cyy1888";
-            StringBuilder signCmd = new StringBuilder("jarsigner.exe");
+            String jarsigner = OsDetection.isWindows() ? "jarsigner.exe" : "jarsigner";
+            StringBuilder signCmd = new StringBuilder(jarsigner);
             signCmd.append(" -verbose -keystore ");
-            signCmd.append(keystore);
+            signCmd.append(signFile.getAbsolutePath());
             signCmd.append(" -storepass ");
             signCmd.append(storePass);
             signCmd.append(" -signedjar ");
-            signCmd.append("signed.apk ");
+            signCmd.append("output" + File.separator + "signed.apk ");
             signCmd.append(srcApkPath + " ");
             signCmd.append(keystore + " ");
             signCmd.append("-digestalg SHA1 -sigalg MD5withRSA");
+            System.out.println("sivan sign cmd = "+signCmd.toString());
             execCmd(signCmd.toString(), false);
             System.out.println("签名apk文件结束===耗时:" + ((System.currentTimeMillis() - time) / 1000) + "s\n\n");
             return true;
